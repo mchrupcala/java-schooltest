@@ -46,5 +46,6 @@ public class CourseServiceImplTest {
 
     @Test
     public void findCourseById() {
+        assertEquals("Node.js", courseService.findCourseById(3).getCoursename());
     }
 }
