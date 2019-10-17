@@ -52,6 +52,9 @@ public class CourseServiceImpl implements CourseService
         Course newCourse = new Course();
 
         newCourse.setCoursename(course.getCoursename());
+        newCourse.setInstructor(course.getInstructor());
+        newCourse.setStudents(course.getStudents());
+        newCourse.setCourseid(course.getCourseid());
 
         return courserepos.save(newCourse);
     }

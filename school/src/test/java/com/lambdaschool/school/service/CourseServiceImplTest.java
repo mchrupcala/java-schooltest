@@ -1,19 +1,24 @@
 package com.lambdaschool.school.service;
 
 import com.lambdaschool.school.SchoolApplication;
+import com.lambdaschool.school.model.Course;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 
 @RunWith(SpringRunner.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @SpringBootTest(classes = SchoolApplication.class)
 public class CourseServiceImplTest {
 
@@ -30,7 +35,7 @@ public class CourseServiceImplTest {
     }
 
     @Test
-    public void findAll() {
+    public void A_findAll() {
         assertEquals(12, courseService.findAll().size());
     }
 
@@ -52,7 +57,16 @@ public class CourseServiceImplTest {
     }
 
     @Test
-    public void save() {
+    public void Tsave() {
+        String course30Name = "Burrito Making";
+        Course c30 = new Course(course30Name);
+
+        Course addedCourse = courseService.save(c30);
+
+        assertNotNull(addedCourse);
+
+        Course foundCourse = courseService.findCourseById(addedCourse.getCourseid());
+        assertEquals(addedCourse.getCoursename(), foundCourse.getCoursename());
     }
 
     @Test

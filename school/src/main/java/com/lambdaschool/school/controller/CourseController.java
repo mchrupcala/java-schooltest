@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 
 @RestController
@@ -21,7 +22,14 @@ public class CourseController
     public ResponseEntity<?> listAllCourses()
     {
         ArrayList<Course> myCourses = courseService.findAll();
-        return new ResponseEntity<>(myCourses, HttpStatus.OK);
+        return new ResponseEntity<>(myCourses, HttpStatus.CREATED);
+    }
+
+    @PostMapping(value = "/course/add", consumes = {"application/json"})
+    public ResponseEntity<?> addNewCourse(@Valid
+                                          @RequestBody Course course) {
+        course = courseService.save(course);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(value = "/studcount", produces = {"application/json"})
