@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.persistence.EntityNotFoundException;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SchoolApplication.class)
 public class CourseServiceImplTest {
@@ -37,7 +39,16 @@ public class CourseServiceImplTest {
     }
 
     @Test
-    public void delete() {
+    public void deleteFound() {
+        courseService.delete(6);
+        assertEquals(11, courseService.findAll().size());
+    }
+
+    @Test
+    (expected = EntityNotFoundException.class)
+    public void deleteNotFound() {
+        courseService.delete(100);
+        assertEquals(12, courseService.findAll().size());
     }
 
     @Test
